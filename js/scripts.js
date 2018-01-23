@@ -5,10 +5,11 @@ function Contact(first, last) {
   this.addresses = [];
 };
 
-function Address(street, city, state) {
+function Address(street, city, state, type) {
   this.street = street;
   this.city = city;
   this.state = state;
+  this.type = type;
 }
 
 Contact.prototype.fullName = function() {
@@ -16,7 +17,7 @@ Contact.prototype.fullName = function() {
 };
 
 Address.prototype.fullAddress = function() {
-  return this.street + ", " + this.city + ", " + this.state;
+  return this.type + ", " + this.street + ", " + this.city + ", " + this.state;
 }
 
 function resetFields() {
@@ -25,6 +26,7 @@ function resetFields() {
     $("input.new-street").val("");
     $("input.new-city").val("");
     $("input.new-state").val("");
+    $("input.new-type").val("");
 }
 
 
@@ -33,6 +35,9 @@ $(document).ready(function() {
 
   $("#add-address").click(function() {
     $("#new-addresses").append('<div class="new-address">' +
+                                                '<div class="form-group">' +
+                                                  '<label for="new-type">Type</label>' +
+                                                  '<input type="text" class="form-control new-type">' + '</div>' +
                                                 '<div class="form-group">' +
                                                     '<label for="new-street">Street</label>' +
                                                     '<input type="text" class="form-control new-street">' + '</div>' +
@@ -55,10 +60,11 @@ $(document).ready(function() {
     var newContact = new Contact(inputtedFirstName, inputtedLastName);
 
     $(".new-address").each(function() {
+      var inputtedType = $(this).find("input.new-type").val();
       var inputtedStreet = $(this).find("input.new-street").val();
       var inputtedCity = $(this).find("input.new-city").val();
       var inputtedState = $(this).find("input.new-state").val();
-      var newAddress = new Address(inputtedStreet, inputtedCity, inputtedState)
+      var newAddress = new Address(inputtedType, inputtedStreet, inputtedCity, inputtedState)
       newContact.addresses.push(newAddress)
     });
 
