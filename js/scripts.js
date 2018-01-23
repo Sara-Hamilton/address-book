@@ -82,7 +82,7 @@ $(document).ready(function() {
     // $("input.new-state").val("");
 
     resetFields();
-    $("#new-addresses").last("input").empty();
+    $(".new-address").not(":first").empty();
 
   });
 });
